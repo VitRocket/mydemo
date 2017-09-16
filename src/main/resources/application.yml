@@ -1,0 +1,11 @@
+server:
+  port: 8787
+  contextPath: /mydemo
+
+spring:
+  data:
+    mongodb:
+                host: localhost
+                port: 27017
+                database: test
+                repository: enable
