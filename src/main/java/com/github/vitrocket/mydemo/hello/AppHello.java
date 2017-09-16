@@ -7,6 +7,6 @@ package com.github.vitrocket.mydemo.hello;
  */
 public class AppHello {
     public static void main(String[] args) {
-        System.out.println("Hello");
+        System.out.println("Hello!");
     }
 }
