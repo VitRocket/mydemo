@@ -38,7 +38,7 @@ public class ImageUploadFacadeImpl implements ImageUploadFacade {
         List<String> fileIds = new ArrayList<>();
         for (MultipartFile uploadedFile : uploadingFiles) {
             log.info(String.valueOf(uploadedFile.getSize()));
-            if (uploadedFile.getSize() > limitSize){
+            if (uploadedFile.getSize() > limitSize) {
                 fileIds.add(uploadedFile.getOriginalFilename() + " exceededs limit size");
             } else {
                 fileIds.add(uploadFile(uploadedFile));
@@ -76,11 +76,38 @@ public class ImageUploadFacadeImpl implements ImageUploadFacade {
     @Override
     public File getImage(String imgId, String size) {
         ImageFile imageFile = imageDBService.findById(imgId);
+        if (imageFile == null) {
+            return null;
+        }
         ImageFileResize imageFileResize = imageFile.getImageResizes().stream()
                                                    .filter(imgFile -> imgFile.getImageSize().toString().equals(size))
                                                    .findFirst().orElse(null);
         String imageUrl = imageFileResize.getLocalUrl();
         return new File(STORAGEIMAGE + imageUrl);
+    }
+
+    @Override
+    public boolean delImage(String imgId) {
+        ImageFile imageFile = imageDBService.findById(imgId);
+        if(imageFile == null){
+            return false;
+        }
+        for (ImageFileResize imageFileResize : imageFile.getImageResizes()) {
+            File file = new File(STORAGEIMAGE + imageFileResize.getLocalUrl());
+            if (file.delete()) {
+                System.out.println(file.getName() + " is deleted!");
+            } else {
+                System.out.println("Delete operation is failed.");
+            }
+        }
+        File file = new File(STORAGEIMAGE + imageFile.getLocalUrl());
+        if (file.delete()) {
+            System.out.println(file.getName() + " is deleted!");
+        } else {
+            System.out.println("Delete operation is failed.");
+        }
+        imageDBService.deleteFileById(imgId);
+        return true;
     }
 
 }

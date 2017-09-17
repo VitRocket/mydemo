@@ -16,4 +16,6 @@ public interface ImageUploadFacade {
     List<String> upload(MultipartFile[] uploadingFiles) throws IOException;
 
     File getImage(String imgId, String size);
+
+    boolean delImage(String imgId);
 }
