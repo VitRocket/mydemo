@@ -1,6 +1,8 @@
 package com.github.vitrocket.mydemo.uploader.server.service;
 
-import com.github.vitrocket.mydemo.uploader.server.model.ImageFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author Vit Rocket on 16.09.2017.
@@ -9,10 +11,5 @@ import com.github.vitrocket.mydemo.uploader.server.model.ImageFile;
  */
 public interface ImageFileService {
 
-    ImageFile findById(String id);
-
-    String saveFile(ImageFile imageFile);
-
-    void deleteFileById(String id);
-
+    void saveImageFile(MultipartFile uploadedFile) throws IOException;
 }

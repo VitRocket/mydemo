@@ -1,6 +1,9 @@
 server:
   port: 8787
   contextPath: /mydemo
+  tomcat:
+    max-http-post-size: 5000000
+
 
 spring:
   data:
@@ -9,3 +12,8 @@ spring:
                 port: 27017
                 database: test
                 repository: enable
+
+  http:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB

@@ -25,15 +25,17 @@ public class ImageFile {
     private String originalName;
     private LocalDateTime loadDateTime;
     private String localUrl;
+    private String format;
     @Setter
     private List<ImageFileResize> imageResizes = new ArrayList<>();
 
     @Builder
-    public ImageFile(String id, String originalName, LocalDateTime loadDateTime, String localUrl, List<ImageFileResize> imageResizes) {
+    public ImageFile(String id, String originalName, LocalDateTime loadDateTime, String localUrl, String format, List<ImageFileResize> imageResizes) {
         this.id = id;
         this.originalName = originalName;
         this.loadDateTime = loadDateTime;
         this.localUrl = localUrl;
+        this.format = format;
         if (imageResizes != null) {
             this.imageResizes.addAll(imageResizes);
         }

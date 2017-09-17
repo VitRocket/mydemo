@@ -29,9 +29,7 @@ public class ImageFileRepositoryImpl implements ImageFileRepository {
     }
 
     public String saveImageFile(ImageFile imageFile) {
-        log.info(imageFile.toString());
         mongoTemplate.insert(imageFile);
-        log.info(imageFile.toString());
         return imageFile.getId();
     }
 
